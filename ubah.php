@@ -28,10 +28,38 @@ $select_query = $connect->query("SELECT * FROM users WHERE `nim`=$NIM");
                         <label for="nama">
                             Nama:</label>
                         <input type="text" name="nama" id="nama" class="form-control" required value="<?= $data['nama'] ?>"><br>
-                        <label for="alamat">
-                            Alamat:
-                        </label>
-                        <input type="text" name="alamat" id="alamat" class="form-control" required value="<?= $data['alamat'] ?>"><br>
+                        <p>Jenis Kelamin</p>
+
+                        <div class="form-check">
+                            <label class="form-check-label" for="laki">
+                                Laki-Laki
+                            </label>
+                            <input class="form-check-input" type="radio" name="jkelamin" id="laki" value="Laki-Laki"<?php if($data['jenis-kelamin']=='Laki-Laki'){ echo 'checked';}?>>
+                            <br>
+                            <label class="form-check-label" for="perempuan">
+                                Perempuan
+                            </label>
+                            <input class="form-check-input" type="radio" name="jkelamin" id="perempuan" value="Perempuan" <?php if($data['jenis-kelamin']=='Perempuan'){ echo 'checked';}?>>
+                        </div><br>
+
+                        <p>Hobby</p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Sepak Bola" id="bola" name="hobi" <?php if($data['hobi']=='Sepak Bola'){echo 'checked';}?>>
+                            <label class="form-check-label" for="bola">
+                                Sepak Bola
+                            </label><br>
+
+                            <input class="form-check-input" type="checkbox" value="Volley" id="volley" name="hobi" <?php if($data['hobi']=='Volley'){ echo 'checked';}?>>
+                            <label class="form-check-label" for="volley">
+                                Volley
+                            </label><br>
+
+                            <input class="form-check-input" type="checkbox" value="Bulu Tangkis" id="btks" name="hobi" <?php if($data['hobi']=='Bulu Tangkis'){ echo 'checked';}?>>
+                            <label class="form-check-label" for="btks">
+                                Bulu Tangkis
+                            </label>
+                        </div><br>
                         <button type="submit" class="btn btn-primary">UPDATE</button>
                     <?php endwhile ?>
                 </form>

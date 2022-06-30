@@ -5,19 +5,22 @@ $no = 1;
 if (isset($_POST['submit'])) {
     $nim = $_POST['nim'];
     $nama = $_POST['nama'];
-    $alamat = $_POST['alamat'];
+    $jenis_kelamin= $_POST['jkelamin'];
+    $hobi= $_POST['hobi'];
     $cek_nim = mysqli_query($connect, "SELECT * FROM users WHERE `nim`=$nim");
     $status_nim = mysqli_num_rows($cek_nim);
-    if ($status_nim = 1) {
-        echo '<script>alert("Maaf Data Sudah Ada")</script>';
+
+    if ($status_nim = 0) {
+        $connect->query("INSERT INTO users (`nim`, `nama`, `jenis-kelamin`, `hobi`) VALUES ($nim, '$nama', '$jenis_kelamin', '$hobi')");
+        $nim = null;
+        $nama = null;
+        $alamat = null;
+        $jenis_kelamin = null;
+        $hobi = null;
+        header('Location: index.php');
     } else {
-    $connect->query("INSERT INTO users (`nim`, `nama`, `alamat`) VALUES ($nim, '$nama', '$alamat')");
-    $nim = null;
-    $nama = null;
-    $alamat = null;
-    header('Location: index.php');
-}
-    
+        echo '<script>alert("Maaf Data Sudah Ada")</script>';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -43,15 +46,46 @@ if (isset($_POST['submit'])) {
                     <label for="nama">
                         Nama:</label>
                     <input type="text" name="nama" id="nama" class="form-control" required><br>
-                    <label for="alamat">
-                        Alamat:
-                    </label>
-                    <input type="text" name="alamat" id="alamat" class="form-control" required><br>
-                    <button name="submit" class="btn btn-primary">DAFTAR</button>
+
+                    <p>Jenis Kelamin</p>
+
+                    <div class="form-check">
+                        <label class="form-check-label" for="laki">
+                            Laki-Laki
+                        </label>
+                        <input class="form-check-input" type="radio" name="jkelamin" id="laki" value="Laki-Laki">
+                        <br>
+                        <label class="form-check-label" for="perempuan">
+                            Perempuan
+                        </label>
+                        <input class="form-check-input" type="radio" name="jkelamin" id="perempuan" value="Perempuan">
+                    </div><br>
+
+                    <p>Hobby</p>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Sepak Bola" id="bola" name="hobi">
+                        <label class="form-check-label" for="bola">
+                            Sepak Bola
+                        </label><br>
+
+                        <input class="form-check-input" type="checkbox" value="Volley" id="volley" name="hobi">
+                        <label class="form-check-label" for="volley">
+                            Volley
+                        </label><br>
+
+                        <input class="form-check-input" type="checkbox" value="Bulu Tangkis" id="btks" name="hobi">
+                        <label class="form-check-label" for="btks">
+                            Bulu Tangkis
+                        </label>
+                    </div><br>
+
+                    <button name="submit" class="btn btn-primary w-100">DAFTAR</button>
                 </form>
             </div>
         </div>
     </div>
+    <hr>
 
     <!-- Table -->
     <section id="table">
@@ -65,7 +99,8 @@ if (isset($_POST['submit'])) {
                                 <th scope="col">No</th>
                                 <th scope="col">NIM</th>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
+                                <th scope="col">Jenis Kelamin</th>
+                                <th scope="col">Hobi</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -84,7 +119,10 @@ if (isset($_POST['submit'])) {
                                         <?= $data['nama'] ?>
                                     </td>
                                     <td>
-                                        <?= $data['alamat'] ?>
+                                        <?= $data['jenis-kelamin'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $data['hobi'] ?>
                                     </td>
                                     <td>
                                         <a href="ubah.php?nim=<?= $data['nim'] ?>"><button class="btn btn-primary mb-1 mt-1">Update</button></a>
