@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $cek_nim = mysqli_query($connect, "SELECT * FROM users WHERE `nim`=$nim");
     $status_nim = mysqli_num_rows($cek_nim);
 
-    if ($status_nim = 0) {
+    if ($status_nim == 0) {
         $connect->query("INSERT INTO users (`nim`, `nama`, `jenis-kelamin`, `hobi`) VALUES ($nim, '$nama', '$jenis_kelamin', '$hobi')");
         $nim = null;
         $nama = null;
