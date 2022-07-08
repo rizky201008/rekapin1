@@ -1,0 +1,64 @@
+if (isset($_POST['submit'])) {
+    $nim = $_POST['nim'];
+    $nama = $_POST['nama'];
+    $jenis_kelamin= $_POST['jkelamin'];
+    $hobi= $_POST['hobi'];
+    $cek_nim = mysqli_query($connect, "SELECT * FROM users WHERE `nim`=$nim");
+    $status_nim = mysqli_num_rows($cek_nim);
+
+    if ($status_nim == 0) {
+        $connect->query("INSERT INTO users (`nim`, `nama`, `jenis-kelamin`, `hobi`) VALUES ($nim, '$nama', '$jenis_kelamin', '$hobi')");
+        $nim = null;
+        $nama = null;
+        $alamat = null;
+        $jenis_kelamin = null;
+        $hobi = null;
+        header('Location: index.php');
+    } else {
+        echo '<script>alert("Maaf Data Sudah Ada")</script>';
+    }
+}
+
+<form action="" method="post">
+                    <label for="nim" class="form-label">
+                        NIM:</label>
+                    <input type="number" name="nim" id="nim" class="form-control" required><br>
+                    <label for="nama">
+                        Nama:</label>
+                    <input type="text" name="nama" id="nama" class="form-control" required><br>
+
+                    <p>Jenis Kelamin</p>
+
+                    <div class="form-check">
+                        <label class="form-check-label" for="laki">
+                            Laki-Laki
+                        </label>
+                        <input class="form-check-input" type="radio" name="jkelamin" id="laki" value="Laki-Laki">
+                        <br>
+                        <label class="form-check-label" for="perempuan">
+                            Perempuan
+                        </label>
+                        <input class="form-check-input" type="radio" name="jkelamin" id="perempuan" value="Perempuan">
+                    </div><br>
+
+                    <p>Hobby</p>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Sepak Bola" id="bola" name="hobi">
+                        <label class="form-check-label" for="bola">
+                            Sepak Bola
+                        </label><br>
+
+                        <input class="form-check-input" type="checkbox" value="Volley" id="volley" name="hobi">
+                        <label class="form-check-label" for="volley">
+                            Volley
+                        </label><br>
+
+                        <input class="form-check-input" type="checkbox" value="Bulu Tangkis" id="btks" name="hobi">
+                        <label class="form-check-label" for="btks">
+                            Bulu Tangkis
+                        </label>
+                    </div><br>
+
+                    <button name="submit" class="btn btn-primary w-100">DAFTAR</button>
+                </form>
